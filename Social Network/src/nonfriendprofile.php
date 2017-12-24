@@ -72,13 +72,10 @@ echo '
                 <a href="#" class="dropdown-toggle pages" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Pages <span><img src="images/down-arrow.png" alt=""></span></a>
                 <ul class="dropdown-menu page-list">
                   <li><a href="newsfeed.php">Newsfeed</a></li>
-                  <li><a href="table.php">Friend Requests</a></li>
-                  <li><a href="table2.php">My friends</a></li>
+                  <li><a href="friendrequests.php">Friend Requests</a></li>
+                  <li><a href="friends.php?friend_email='.user_email.'">My friends</a></li>
                   <li><a href="myprofile.php">Timeline</a></li>
-
-
-
-                  <li><a href="index.php">Log Out</a></li>
+				  <li><a href="index.php">Log Out</a></li>
                 </ul>
               </li>
             </ul>
@@ -117,28 +114,48 @@ echo '
               <div class="col-md-9">
                 <ul class="list-inline profile-menu">
                 <li><a href="nonfriendprofile.php?nonfriend_email='.$nonfriend_email.'" class="active">Timeline</a></li>
-                <li><a href="Friends.php?email='.$nonfriend_email.'">Friends</a></li>
+                <li><a href="Friends.php?friend_email='.$nonfriend_email.'">Friends</a></li>
                 </ul>
                  <ul class="follow-me list-inline">
 				
 			';
 			$q = "SELECT * FROM friendrequest WHERE myEmail= '$user_email' AND myfriendEmail = '$nonfriend_email'";
-			if($qf=mysqli_query($connection,$q)){
-				if($count=mysqli_num_rows($qf) !=0){
+			if($qf=mysqli_query($connection,$q) ){
+				if( $count=mysqli_num_rows($qf) !=0){
 					echo'
-					<li><form>
-					 <a href="deleterequest.php?nonfriend_email='.$nonfriend_email.'"><button class="btn-primary"> Delete Request</button> </a>
-					 </form></li>
+					<li><a href="deleterequest.php?nonfriend_email='.$nonfriend_email.'">
+					 <button class="btn-primary"> Delete Request</button> 
+					 </a></li>
 					 ';
 				}
-				else{
-					echo'
-					<li><form>
-					 <a href="addfriend.php?nonfriend_email='.$nonfriend_email.'"><button class="btn-primary">Add Friend </button></a>
-					 </form></li>
-					 ';
+				
+			
+				else
+				{
+				$q = "SELECT * FROM friendrequest WHERE myEmail= '$nonfriend_email' AND myfriendEmail = '$user_email' ";
+					 if($qf=mysqli_query($connection,$q) ){
+						 if( $count=mysqli_num_rows($qf) !=0){
+					   
+						echo'
+						<li><a href="confirmrequest.php?nonfriend_email='.$nonfriend_email.'">
+						 <button class="btn-primary">Confirm Request </button>
+						 </a></li>
+						 ';
+					}
+					 
+						 else
+						 {
+							echo'
+						<li><a href="addfriend.php?nonfriend_email='.$nonfriend_email.'">
+						 <button class="btn-primary">Add Friend </button>
+						 </a></li>
+						 '; 
+						 }
+				}
+					 
 				}
 			}
+			
 				echo'
 			 
 			 </ul>
@@ -214,7 +231,7 @@ if($query_fetched = mysqli_query($connection,$query))
                       <p class="text-muted">Posted ' .$time .'</p>
                     </div>
                     <div class="reaction">
-                      <a class="btn text-green"><i class="icon ion-thumbsup"></i> 13</a>
+                      <a class="btn text-green"><i class="icon ion-thumbsup"></i> 2</a>
                     </div>
                     <div class="line-divider"></div>
                     <div class="post-text">
@@ -227,6 +244,7 @@ if($query_fetched = mysqli_query($connection,$query))
 			  ';
 	}
 }
+
 echo '
             </div>
 

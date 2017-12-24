@@ -70,12 +70,9 @@ echo '
                 <a href="#" class="dropdown-toggle pages" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Pages <span><img src="images/down-arrow.png" alt=""></span></a>
                 <ul class="dropdown-menu page-list">
                   <li><a href="newsfeed.php">Newsfeed</a></li>
-                  <li><a href="table.php">Friend Requests</a></li>
-                  <li><a href="table2.php">My friends</a></li>
+                  <li><a href="friendrequests.php">Friend Requests</a></li>
+                  <li><a href="friends.php?friend_email='.$email.'">My friends</a></li>
                   <li><a href="myprofile.php">Timeline</a></li>
-
-
-
                   <li><a href="index.php">Log Out</a></li>
                 </ul>
               </li>
@@ -193,7 +190,7 @@ if($query_fetched = mysqli_query($connection,$query))
                       <p class="text-muted">Posted ' .$time .'</p>
                     </div>
                     <div class="reaction">
-                      <a class="btn text-green"><i class="icon ion-thumbsup"></i> 13</a>
+                      <a class="btn text-green"><i class="icon ion-thumbsup"></i> 2</a>
                     </div>
                     <div class="line-divider"></div>
                     <div class="post-text">

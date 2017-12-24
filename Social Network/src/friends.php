@@ -71,12 +71,9 @@ echo '
                 <a href="#" class="dropdown-toggle pages" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Pages <span><img src="images/down-arrow.png" alt=""></span></a>
                 <ul class="dropdown-menu page-list">
                   <li><a href="newsfeed.php">Newsfeed</a></li>
-                  <li><a href="table.php">Friend Requests</a></li>
-                  <li><a href="table2.php">My friends</a></li>
+                  <li><a href="friendrequests.php">Friend Requests</a></li>
+                  <li><a href="friends.php?friend_email='.$user_email.'">My friends</a></li>
                   <li><a href="myprofile.php">Timeline</a></li>
-
-
-
                   <li><a href="index.php">Log Out</a></li>
                 </ul>
               </li>
@@ -116,7 +113,7 @@ echo '
               <div class="col-md-9">
                 <ul class="list-inline profile-menu">
                   <li><a href="Myprofile.php" >Timeline</a></li>
-                  <li><a href="friends.php?email='.$friend_email.'" class="active">Friends</a></li>
+                  <li><a href="friends.php?friend_email='.$friend_email.'" class="active">Friends</a></li>
                 </ul>
               </div>
             </div>
@@ -131,7 +128,7 @@ echo '
             <div class="mobile-menu">
               <ul class="list-inline">
                 <li><a href="Myprofile.php" class="active">Timeline</a></li>
-                <li><a href="Friends.php">Friends</a></li>
+                <li><a href="friends.php?friend_email='.$user_email.'">Friends</a></li>
               </ul>
             </div>
           </div><!--Timeline Menu for Small Screens End-->

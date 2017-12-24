@@ -7,8 +7,7 @@ session_start();
 
 require 'conn.php';
 $user_email = $_SESSION['email'];
-$friend_email = $_GET['friend_email'];
-$query = "SELECT * FROM users WHERE email = '$friend_email'";
+$query = "SELECT * FROM users WHERE email = '$user_email'";
 if($query_fetched = mysqli_query($connection,$query))
 {
    $row = mysqli_fetch_assoc($query_fetched);
@@ -74,6 +73,9 @@ echo '
                   <li><a href="friendrequests.php">Friend Requests</a></li>
                   <li><a href="friends.php?friend_email='.$user_email.'">My friends</a></li>
                   <li><a href="myprofile.php">Timeline</a></li>
+
+
+
                   <li><a href="index.php">Log Out</a></li>
                 </ul>
               </li>
@@ -112,18 +114,13 @@ echo '
               </div>
               <div class="col-md-9">
                 <ul class="list-inline profile-menu">
-                <li><a href="Friendprofile.php?friend_email='.$friend_email.'" class="active">Timeline</a></li>
-                <li><a href="Friends.php?friend_email='.$friend_email.'">Friends</a></li>
-				</ul>
-                 <ul class="follow-me list-inline">
-				<li><a href="Unfriend.php?friend_email='.$friend_email.'"
-			 <button class="btn-primary">Unfriend</button>
-			 </a></li>
-			 </ul>
+                  <li><a href="Myprofile.php" >Timeline</a></li>
+                  <li><a href="friends.php?friend_email='.$user_email.'" class="active">Friends</a></li>
+                </ul>
               </div>
             </div>
           </div><!--Timeline Menu for Large Screens End-->
-		  
+
           <!--Timeline Menu for Small Screens-->
           <div class="navbar-mobile hidden-lg hidden-md">
             <div class="profile-info">
@@ -132,8 +129,8 @@ echo '
             </div>
             <div class="mobile-menu">
               <ul class="list-inline">
-                <li><a href="Friendprofile.php?friend_email='.$friend_email.'" class="active">Timeline</a></li>
-                <li><a href="Friends.php?friend_email='.$friend_email.'">Friends</a></li>
+                <li><a href="Myprofile.php" class="active">Timeline</a></li>
+                <li><a href="friends.php?friend_email='.$user_email.'">Friends</a></li>
               </ul>
             </div>
           </div><!--Timeline Menu for Small Screens End-->
@@ -143,69 +140,44 @@ echo '
           <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-7">
-			              <!-- Post Create Box
+			                            <!-- Friend List
               ================================================= -->
-              <div class="create-post">
+              <div class="friend-list">
                 <div class="row">
-                </div>
-              </div><!-- Post Create Box End-->
+                  
+
 ';
-$query = "SELECT * FROM post WHERE email='$friend_email' ORDER BY postedtime DESC";
+$query = "SELECT myEmail FROM friendrequest WHERE myfriendEmail='$user_email'";
 if($query_fetched = mysqli_query($connection,$query))
 {
 	while($row = mysqli_fetch_assoc($query_fetched))
 	{
-		$post = $row['statpost'];
-		$date = $row['postedtime'];
-		$time = $row['postedtime'];
-		$imag_exists = FALSE;
-		if($row['img'] !=NULL)
+		$mail = $row['myEmail'];
+		$query2 = "SELECT * FROM users where Email='$mail'";
+		if($query_fetched2 = mysqli_query($connection,$query2))
 		{
-		$image = $row['img'];
-		$imag_exists = TRUE;
+			$row = mysqli_fetch_assoc($query_fetched2);
+			$name = $row['Nickname'];
+			$img = $row['userPic'];
 		}
 		echo '
-		
-              <!-- Post Content
-              ================================================= -->
-              <div class="post-content">
-
-                <!--Post Date-->
-                <div class="post-date hidden-xs hidden-sm">
-                  <h5>' .$Nickname .'</h5>
-                  <p class="text-grey">' .$date .'</p>
-                </div><!--Post Date End-->';
-				if($imag_exists == TRUE)
-				{
-					
-                  echo'
-                <img src="data:image;base64,'.$image.'" alt="post-image" class="img-responsive post-image" />
-
-				  ';
-				}
-				echo'
-				  <div class="post-container">
-                  <img src="data:image;base64,'.$User_image.'" alt="user" class="profile-photo-md pull-left" />
-                  <div class="post-detail">
-                    <div class="user-info">
-                      <h5><a href="Friendprofile.php?friend_email='.$friend_email.'" class="profile-link">' .$Nickname .'</a></h5>
-                      <p class="text-muted">Posted ' .$time .'</p>
+                   <div class="col-md-6 col-sm-6">
+                    <div class="friend-card">
+                      <img src="images/covers/1.jpg" alt="profile-cover" class="img-responsive cover" />
+                      <div class="card-info">
+                        <img src="data:image;base64,'.$img.'" alt="user" class="profile-photo-lg" />
+                        <div class="friend-info">
+                          <a href="confirmrequest.php?nonfriend_email='.$mail.'" class="pull-right text-green">Confirm Request</a>
+                          <h5><a href="nonfriendprofile.php?nonfriend_email='.$mail.'" class="profile-link">'.$name.'</a></h5>
+                        </div>
+                      </div>
                     </div>
-                    <div class="reaction">
-                      <a class="btn text-green"><i class="icon ion-thumbsup"></i> 2</a>
-                    </div>
-                    <div class="line-divider"></div>
-                    <div class="post-text">
-                      <p>' .$post. ' </p>
-                    </div>
-                    <div class="line-divider"></div>
                   </div>
-                </div>
-              </div>
 			  ';
 	}
 }
 echo '
+</div></div>
             </div>
 
           </div>
