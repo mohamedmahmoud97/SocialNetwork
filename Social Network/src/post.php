@@ -26,13 +26,17 @@ if(isset($_FILES['image1'])){
      array_push($errors, 'File size must be excately 2 MB');
    }
    if(count($errors) == 0){
+     $posttype = $_POST['posttype'];
+     if(strcmp($posttype,"private") !=0) $ispublic='t';
+     else $ispublic ='f';
 
       $image=addslashes($file_tmp);
   $name=addslashes($file_name);
   $image=file_get_contents($image);
   $image=base64_encode($image);
-  $query="INSERT INTO `post`(`statpost`, `Email`, `img`, `imgname`) VALUES ('$text','$email','$image','$name')";
+  $query="INSERT INTO `post`(`statpost`,ispublic, `Email`, `img`, `imgname`) VALUES ('$text','$ispublic','$email','$image','$name')";
   $re=mysqli_query($connection, $query);
+  header('location:newsfeed.php');  
    }
    }else{
     // if($text!=n){

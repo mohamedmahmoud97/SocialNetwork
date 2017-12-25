@@ -218,10 +218,10 @@ echo '
 							  {
 								  
 								  $q = "SELECT myfriendEmail FROM friend where myEmail='$user_email' AND myfriendEmail='$mail'";
-								  if($qf=mysqli_query($connection,$query)){
+								  if($qf=mysqli_query($connection,$q)){
 									  if($count=mysqli_num_rows($qf) !=0)
 									  {
-										  echo $count;
+										  
 										  echo'
 												 <a href="#" class="pull-right text-green">My Friend</a>
 												  <h5><a href="Friendprofile.php?friend_email='.$mail.'" class="profile-link">'.$nname.'</a></h5>
