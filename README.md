@@ -4,7 +4,7 @@ A social networking web-based application that involves the use of the internet 
 
 It's like Facebook, Twitter, and Google+.
 
-You can add friends, post posts and images, react to posts, search for friends with advanced search options, and waste time on your newsfeed.
+You can add friends, post public and private posts and images, react to posts, search for friends with advanced search options, and waste time on your newsfeed.
 
 It's implemented using php, css, html, and Javascript.
 
